@@ -1,0 +1,83 @@
+@import "./global.scss";
+
+.Queue {
+  display: flex;
+  flex-flow: column nowrap;
+  border: 1px solid $borderColor;
+  min-width: 0px;
+  transition: max-width 200ms ease, padding 200ms ease;
+}
+.Queue--invisible {
+  max-width: 0px;
+}
+
+.Queue__heading {
+  font-size: 24px;
+  font-variant: small-caps;
+  font-weight: bold;
+  margin: 0px;
+  padding: 5px 15px;
+  background-color: $backgroundColor;
+}
+.Queue__emptyNote {
+  font-size: 14px;
+  font-style: italic;
+  padding: 15px;
+}
+
+.QueueItem {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  position: relative;
+  background-color: $backgroundColor;
+  padding: 5px 10px;
+  overflow: hidden;
+  max-height: 120px;
+  transition: max-height 200ms ease;
+}
+.QueueItem--clicked {
+  max-height: 0px;
+}
+
+.QueueItem__imageContainer {
+  flex: 0 0.5 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+.QueueItem__image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.QueueItem__textContent {
+  flex: 1 1 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: left;
+  overflow-x: auto;
+  margin: 0px 35px 0px 10px;
+}
+.QueueItem__textContent__heading {
+  width: 100%;
+  white-space: nowrap;
+  margin: 0px 0px 4px 0px;
+  font-weight: normal;
+}
+.QueueItem__textContent__heading--subtitle {
+  font-size: 13px;
+  color: $subtitleColor;
+}
+
+.QueueItem__removeButton {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 40px;
+}

@@ -1,0 +1,206 @@
+@import "./global.scss";
+
+.Player {
+  height: 120px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 10;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid $borderColor;
+  background-color: $backgroundColor;
+  transition: 0.2s ease;
+}
+.Player--collapsed {
+  bottom: -150px;
+}
+
+.Player__controls {
+  flex: 1 1 70%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.Player__metadata {
+  flex: 1 1 25%;
+  width: 100%;
+  overflow-x: auto;
+  text-align: center;
+}
+.Player__metadata__songTitle {
+  font-size: 18px;
+  padding-right: 8px;
+}
+.Player__metadata__channelTitle {
+  color: $subtitleColor;
+}
+
+.Player__controls__PlaybackControl {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 0 15px;
+}
+.PlaybackControl__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  border: 2px solid $buttonBorderColor;
+
+  i {
+    color: $buttonColor;
+  }
+}
+.PlaybackControl__button:hover {
+  border-color: $buttonDarkBorderColor;
+  i {
+    color: $buttonDarkColor;
+  }
+}
+.PlaybackControl__button--togglePlayback {
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  margin: 0px 8px;
+
+  i {
+    font-size: 44px;
+  }
+}
+.PlaybackControl__button--skip {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+
+  i {
+    font-size: 34px;
+  }
+}
+
+.Player__controls__OrderControl {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.OrderControl__button {
+  width: 28px;
+  height: 28px;
+  border-radius: 2px;
+  border: 2px solid $buttonDisabledBorderColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+
+  i {
+    font-size: 22px;
+    color: $buttonDisabledColor;
+  }
+}
+.OrderControl__button--enabled {
+  border-color: $buttonBorderColor;
+
+  i {
+    color: $buttonColor;
+  }
+}
+.OrderControl__button:hover {
+  border-color: $buttonDarkBorderColor;
+  i {
+    color: $buttonDarkColor;
+  }
+}
+
+input.Player__controls__timeControl {
+  -webkit-appearance: none;
+  margin-right: -20px;
+  background-color: $buttonColor;
+  border: none;
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  top: -1px;
+  cursor: pointer;
+  padding: 0px;
+
+  &:hover {
+    background-color: $buttonDarkColor;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    vertical-align: middle;
+    background-color: $buttonColor;
+    width: 6px;
+    height: 16px;
+    border-radius: 3px;
+  }
+  &::-webkit-slider-thumb:hover {
+    background-color: $buttonDarkColor;
+  }
+}
+
+input.Player__controls__volumeControl {
+  -webkit-appearance: none;
+  transform: rotate(270deg);
+  margin-right: -20px;
+  background-color: $backgroundColor;
+  border: 1px solid $buttonBorderColor;
+  height: 16px;
+  width: 60px;
+  border-radius: 16px;
+  cursor: pointer;
+  padding: 1px;
+
+  &:hover {
+    border-color: $buttonDarkBorderColor;
+    background-color: $buttonHoverBackgroundColor;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    vertical-align: middle;
+    background-color: $buttonColor;
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+  }
+  &::-webkit-slider-thumb:hover {
+    background-color: $buttonDarkColor;
+  }
+}
+
+.Player__togglePlayerButton {
+  width: 28px;
+  height: 28px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+
+  i {
+    font-size: 22px;
+    color: $buttonColor;
+  }
+}
+.Player__togglePlayerButton:hover i {
+  color: $buttonDarkColor;
+}
+.Player__togglePlayerButton--maximize {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  z-index: 9;
+}
+.Player__togglePlayerButton--minimize {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}

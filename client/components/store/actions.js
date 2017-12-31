@@ -57,6 +57,45 @@ const fetchAgencies = () => {
     });
   };
 };
+const fetchRoutes = () => {
+  return (dispatch, getState) => {
+    dispatch(requestOption("route"));
+    return fetch(`${apiBase}routeList&a=${getState().agencySelection}`).then(
+      response => response.text(),
+      error => console.log("Error fetching route list", error)
+    ).then((xml) => {
+      const data = x2js.xml2js(xml);
+      const routeList = data.body.route.map((route) => {
+        return {
+          id: route._tag,
+          name: route._title,
+        };
+      });
+      dispatch(setOptionList("route", routeList));
+      dispatch(doneRequestingOption("route"));
+    });
+  };
+};
+const fetchStops = () => {
+  return (dispatch, getState) => {
+    dispatch(requestOption("stop"));
+    const state = getState();
+    return fetch(`${apiBase}routeConfig&a=${state.agencySelection}&r=${state.routeSelection}`).then(
+      response => response.text(),
+      error => console.log("Error fetching stop list", error)
+    ).then((xml) => {
+      const data = x2js.xml2js(xml);
+      const stopList = data.body.route.stop.map((stop) => {
+        return {
+          id: stop._stopId,
+          name: stop._title,
+        };
+      });
+      dispatch(setOptionList("stop", stopList));
+      dispatch(doneRequestingOption("stop"));
+    });
+  };
+};
 
 const actions = {
   // Sync,
@@ -64,5 +103,7 @@ const actions = {
 
   // Async
   fetchAgencies,
+  fetchRoutes,
+  fetchStops,
 };
 export default actions;

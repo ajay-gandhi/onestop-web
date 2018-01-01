@@ -38,7 +38,6 @@ class NextTrainApp extends React.Component {
   }
   handleStopChange = e => {
     this.props.selectAgency(e.id);
-    this.props.fetchRoutes();
   }
 
   render = () => {

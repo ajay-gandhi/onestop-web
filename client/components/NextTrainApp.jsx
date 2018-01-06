@@ -10,15 +10,16 @@ import { actions, store } from "components/store/Store";
 
 class NextTrainApp extends React.Component {
   static propTypes = {
-    agencies: PropTypes.arrayOf(PropTypes.object),
-    routes: PropTypes.arrayOf(PropTypes.object),
-    stops: PropTypes.arrayOf(PropTypes.object),
     selectedAgency: PropTypes.string,
     selectedRoute: PropTypes.string,
     selectedStop: PropTypes.string,
-    selectAgency: PropTypes.func,
-    selectRoute: PropTypes.func,
-    selectStop: PropTypes.func,
+
+    agencies: PropTypes.arrayOf(PropTypes.object),
+    routes: PropTypes.arrayOf(PropTypes.object),
+    stops: PropTypes.arrayOf(PropTypes.object),
+
+    selectOption: PropTypes.func,
+
     fetchAgencies: PropTypes.func,
     fetchRoutes: PropTypes.func,
     fetchStops: PropTypes.func,
@@ -29,15 +30,16 @@ class NextTrainApp extends React.Component {
   }
 
   handleAgencyChange = e => {
-    this.props.selectAgency(e.id);
+    this.props.selectOption("agency", e.id);
     this.props.fetchRoutes();
   }
   handleRouteChange = e => {
-    this.props.selectRoute(e.id);
+    this.props.selectOption("route", e.id);
     this.props.fetchStops();
   }
   handleStopChange = e => {
-    this.props.selectAgency(e.id);
+    this.props.selectOption("stop", e.id);
+    this.props.getPrediction();
   }
 
   render = () => {
@@ -69,7 +71,7 @@ class NextTrainApp extends React.Component {
           labelKey="name"
           valueKey="id"
           options={ this.props.stops }
-      />
+        />
       </div>
     );
   }
@@ -77,38 +79,27 @@ class NextTrainApp extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    selectedAgency: state.agencySelection,
-    selectedRoute: state.routeSelection,
-    selectedStop: state.stopSelection,
-    agencies: state.agencyList.data,
-    routes: state.routeList.data,
-    stops: state.stopList.data,
+    selectedAgency: state.selections.agency,
+    selectedRoute: state.selections.route,
+    selectedStop: state.selections.stop,
+
+    agencies: state.lists.agency.data,
+    routes: state.lists.route.data,
+    stops: state.lists.stop.data,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    selectAgency: selectedAgency => dispatch(actions.selectOption("agency", selectedAgency)),
-    selectRoute: selectedRoute => dispatch(actions.selectOption("route", selectedRoute)),
-    selectStop: selectedStop => dispatch(actions.selectOption("stop", selectedStop)),
+    selectOption: (option, value) => dispatch(actions.selectOption(option, value)),
+
     fetchAgencies: () => dispatch(actions.fetchAgencies()),
     fetchRoutes: () => dispatch(actions.fetchRoutes()),
     fetchStops: () => dispatch(actions.fetchStops()),
+
+    getPrediction: () => dispatch(actions.getPrediction()),
   };
 };
 const ConnectedNextTrainApp = connect(mapStateToProps, mapDispatchToProps)(NextTrainApp);
 
 const NextTrainAppContainer = () => <Provider store={ store }><ConnectedNextTrainApp /></Provider>;
 export default NextTrainAppContainer;
-
-// const mapStateToProps = () => ({});
-// const mapDispatchToProps = (dispatch) => {
-  // return {
-    // movePlaylistItem: (source, dest) => dispatch(actions.movePlaylistItem(source, dest)),
-    // moveQueueItem: (source, dest) => dispatch(actions.moveQueueItem(source, dest)),
-  // };
-// };
-
-// const ConnectedYouMuseApp = connect(mapStateToProps, mapDispatchToProps)(YouMuseApp);
-
-// const YouMuseAppContainer = () => <Provider store={ store }><ConnectedYouMuseApp /></Provider>;
-// export default YouMuseAppContainer;

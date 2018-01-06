@@ -5,33 +5,45 @@ const reducer = (state = INITIAL_STATE, action) => {
     case ACTION_TYPES.selectOption:
       return {
         ...state,
-        [`${action.option}Selection`]: action.value,
+        selections: {
+          ...state.selections,
+          [action.option]: action.value,
+        },
       };
 
     case ACTION_TYPES.requestOption:
       return {
         ...state,
-        [`${action.option}List`]: {
-          isFetching: true,
-          data: state[`${action.option}List`].data,
+        lists: {
+          ...state.lists,
+          [action.option]: {
+            isFetching: true,
+            data: state.lists[action.option].data,
+          },
         },
       };
 
     case ACTION_TYPES.doneRequestingOption:
       return {
         ...state,
-        [`${action.option}List`]: {
-          isFetching: false,
-          data: state[`${action.option}List`].data,
+        lists: {
+          ...state.lists,
+          [action.option]: {
+            isFetching: false,
+            data: state.lists[action.option].data,
+          },
         },
       };
 
     case ACTION_TYPES.setOptionList:
       return {
         ...state,
-        [`${action.option}List`]: {
-          isFetching: state[`${action.option}List`].isFetching,
-          data: action.data,
+        lists: {
+          ...state.lists,
+          [action.option]: {
+            isFetching: state.lists[action.option].isFetching,
+            data: action.data,
+          },
         },
       };
 

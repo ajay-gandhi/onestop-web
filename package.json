@@ -1,7 +1,7 @@
 {
-  "name": "hello-world-react",
+  "name": "whenstop",
   "version": "0.0.1",
-  "description": "Trying out the setup",
+  "description": "Get predictions for public transit from Google Assistant",
   "main": "index.js",
   "author": "Ajay Gandhi",
   "license": "MIT",

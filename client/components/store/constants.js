@@ -6,19 +6,11 @@ export const ACTION_TYPES = Object.freeze({
 });
 
 export const INITIAL_STATE = Object.freeze({
-  agencySelection: "",
-  routeSelection: "",
-  stopSelection: "",
-  agencyList: {
-    isFetching: false,
-    data: [],
-  },
-  routeList: {
-    isFetching: false,
-    data: [],
-  },
-  stopList: {
-    isFetching: false,
-    data: [],
+  selections: {},
+  lists: {
+    agency: {},
+    route: {},
+    direction: {},
+    stop: {},
   },
 });

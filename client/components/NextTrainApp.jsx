@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { actions, store } from "components/store/Store";
 
 import ConnectedAgencySelector from "components/AgencySelector";
+import Map from "components/Map";
 
 class NextTrainApp extends React.Component {
   static propTypes = {
@@ -39,6 +40,7 @@ class NextTrainApp extends React.Component {
     return (
       <div>
         <ConnectedAgencySelector />
+        <Map />
       </div>
     );
   }

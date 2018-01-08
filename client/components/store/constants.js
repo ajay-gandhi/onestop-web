@@ -13,6 +13,6 @@ export const INITIAL_STATE = Object.freeze({
   },
   stops: {
     isFetching: false,
-    data: [],
+    data: {},
   },
 });

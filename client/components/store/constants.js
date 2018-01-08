@@ -1,16 +1,18 @@
 export const ACTION_TYPES = Object.freeze({
-  selectOption: "SELECT_OPTION",
-  setOptionList: "SET_OPTION_LIST",
-  requestOption: "REQUEST_OPTION",
-  doneRequestingOption: "DONE_REQUESTING_OPTION",
+  setValues: "SET_VALUES",
+  requestData: "REQUEST_DATA",
+  doneRequestingData: "DONE_REQUESTING_DATA",
+  setData: "SET_DATA",
 });
 
 export const INITIAL_STATE = Object.freeze({
-  selections: {},
-  lists: {
-    agency: {},
-    route: {},
-    direction: {},
-    stop: {},
+  selectedAgency: "",
+  agencies: {
+    isFetching: false,
+    data: [],
+  },
+  stops: {
+    isFetching: false,
+    data: [],
   },
 });

@@ -2,50 +2,40 @@ import { ACTION_TYPES, INITIAL_STATE } from "./constants";
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ACTION_TYPES.selectOption:
+    case ACTION_TYPES.setValues:
       return {
         ...state,
-        selections: {
-          ...state.selections,
-          [action.option]: action.value,
+        ...action.values,
+      };
+
+    case ACTION_TYPES.requestData:
+      return {
+        ...state,
+        [action.model]: {
+          isFetching: true,
+          data: state[action.model].data,
         },
       };
 
-    case ACTION_TYPES.requestOption:
+    case ACTION_TYPES.doneRequestingData:
       return {
         ...state,
-        lists: {
-          ...state.lists,
-          [action.option]: {
-            isFetching: true,
-            data: state.lists[action.option].data,
-          },
+        [action.model]: {
+          isFetching: false,
+          data: state[action.model].data,
         },
       };
 
-    case ACTION_TYPES.doneRequestingOption:
+    case ACTION_TYPES.setData: {
+      const key = Object.keys(action.model)[0];
       return {
         ...state,
-        lists: {
-          ...state.lists,
-          [action.option]: {
-            isFetching: false,
-            data: state.lists[action.option].data,
-          },
+        [key]: {
+          isFetching: state[key].isFetching,
+          data: action.model[key],
         },
       };
-
-    case ACTION_TYPES.setOptionList:
-      return {
-        ...state,
-        lists: {
-          ...state.lists,
-          [action.option]: {
-            isFetching: state.lists[action.option].isFetching,
-            data: action.data,
-          },
-        },
-      };
+    }
 
     default:
       return state;

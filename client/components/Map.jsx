@@ -21,6 +21,7 @@ class Map extends React.Component {
   static propTypes = {
     stops: PropTypes.object,
     selectStop: PropTypes.func,
+    selectedRoute: PropTypes.object,
     prediction: PropTypes.object,
     getPrediction: PropTypes.func,
     center: PropTypes.shape({
@@ -39,8 +40,9 @@ class Map extends React.Component {
   state = {};
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.stops && !this.props.stops) {
-      const markers = Object.values(nextProps.stops).map((stop) => {
+    // Create markers
+    if (nextProps.stops !== this.props.stops) {
+      const markers = Object.values(nextProps.stops).reduce((memo, stop) => {
         const marker = new this.mapApi.Marker({
           position: new this.mapApi.LatLng(stop.lat, stop.lng),
           map: this.map,
@@ -55,15 +57,27 @@ class Map extends React.Component {
           this.props.selectStop(stop.id);
         });
 
-        return marker;
-      });
+        memo[stop.id] = marker;
+        return memo;
+      }, {});
       this.setState({ markers });
+    }
+
+    // Filter markers by route
+    if (nextProps.selectedRoute !== this.props.selectedRoute && this.state.markers) {
+      this.hideAllMarkers();
+      nextProps.selectedRoute.stopIds.forEach((stopId) => {
+        this.state.markers[stopId].setMap(this.map);
+      });
     }
   }
 
   setMap = ({ map, maps }) => {
     this.map = map;
     this.mapApi = maps;
+  }
+  hideAllMarkers = () => {
+    if (this.state.markers) Object.values(this.state.markers).forEach(marker => marker.setMap(null));
   }
 
   render = () => {
@@ -102,6 +116,7 @@ class Map extends React.Component {
 const mapStateToProps = (state) => {
   return {
     stops: state.stops.data,
+    selectedRoute: state.routes.data[state.selectedRoute],
     selectedStop: state.selectedStop,
     prediction: state.predictions.data,
   };

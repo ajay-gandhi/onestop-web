@@ -11,6 +11,10 @@ export const INITIAL_STATE = Object.freeze({
     isFetching: false,
     data: [],
   },
+  routes: {
+    isFetching: false,
+    data: {},
+  },
   stops: {
     isFetching: false,
     data: {},

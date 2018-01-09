@@ -21,14 +21,14 @@ class AgencySelector extends React.Component {
 
   render = () => {
     return (
-        <Select
-          name="agency"
-          value={ this.props.selectedAgency }
-          onChange={ this.handleAgencyChange }
-          labelKey="name"
-          valueKey="id"
-          options={ this.props.agencies }
-        />
+      <Select
+        name="agency"
+        value={ this.props.selectedAgency }
+        onChange={ this.handleAgencyChange }
+        labelKey="name"
+        valueKey="id"
+        options={ this.props.agencies }
+      />
     );
   }
 }

@@ -58,27 +58,45 @@ const fetchAgencies = () => {
 const fetchStops = () => {
   return (dispatch, getState) => {
     dispatch(requestData("stops"));
+    dispatch(requestData("routes"));
     const state = getState();
     return fetch(`${apiBase}routeConfig&a=${state.selectedAgency}`).then(
       response => response.text(),
       error => console.log("Error fetching stops", error)
     ).then((xml) => {
       const data = x2js.xml2js(xml);
-      const stops = data.body.route.reduce((memo, route) => {
+      const agg = data.body.route.reduce((memo, route) => {
+        // Aggregate stops and connect to routes
+        const stopList = [];
         route.stop.forEach((stop) => {
-          if (!memo[stop._tag]) {
-            memo[stop._tag] = {
+          stopList.push(stop._tag);
+          if (!memo.stops[stop._tag]) {
+            memo.stops[stop._tag] = {
               id: stop._tag,
               stopId: stop._stopId,
               name: stop._title,
               lat: stop._lat,
               lng: stop._lon,
+              routes: [route._tag],
             };
           }
         });
+
+        // Aggregate routes
+        memo.routes[route._tag] = {
+          id: route._tag,
+          name: route._title,
+          stopIds: stopList,
+        };
         return memo;
-      }, {});
-      dispatch(setData({ stops }));
+      }, {
+        stops: {},
+        routes: {},
+      });
+
+      dispatch(setData({ stops: agg.stops }));
+      dispatch(setData({ routes: agg.routes }));
+      dispatch(doneRequestingData("routes"));
       dispatch(doneRequestingData("stops"));
     });
   };

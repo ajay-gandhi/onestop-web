@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { actions, store } from "components/store/Store";
 
 import ConnectedAgencySelector from "components/AgencySelector";
+import ConnectedRouteSelector from "components/RouteSelector";
 import Map from "components/Map";
 
 class NextTrainApp extends React.Component {
@@ -40,6 +41,8 @@ class NextTrainApp extends React.Component {
     return (
       <div>
         <ConnectedAgencySelector />
+        <ConnectedRouteSelector />
+        (Route selection is optional but recommended)
         <Map />
       </div>
     );

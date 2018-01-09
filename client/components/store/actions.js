@@ -69,6 +69,7 @@ const fetchStops = () => {
           if (!memo[stop._tag]) {
             memo[stop._tag] = {
               id: stop._tag,
+              stopId: stop._stopId,
               name: stop._title,
               lat: stop._lat,
               lng: stop._lon,
@@ -82,27 +83,22 @@ const fetchStops = () => {
     });
   };
 };
-// const getPrediction = () => {
-  // return (dispatch, getState) => {
-    // dispatch(requestOption("stop"));
-    // const state = getState();
-    // return fetch(`${apiBase}predictions&a=${state.selections.agency}&routeTag=${state.selections.route}&stopId=${state.selections.stop}`).then(
-      // response => response.text(),
-      // error => console.log("Error fetching stop list", error)
-    // ).then((xml) => {
-      // const data = x2js.xml2js(xml);
-      // console.log(data);
-      // // const stopList = data.body.route.stop.map((stop) => {
-        // // return {
-          // // id: stop._stopId,
-          // // name: stop._title,
-        // // };
-      // // });
-      // // dispatch(setOptionList("stop", stopList));
-      // dispatch(doneRequestingOption("stop"));
-    // });
-  // };
-// };
+const getPrediction = () => {
+  return (dispatch, getState) => {
+    dispatch(requestData("predictions"));
+    const state = getState();
+    const stopId = state.stops.data[state.selectedStop].stopId;
+    return fetch(`${apiBase}predictions&a=${state.selectedAgency}&stopId=${stopId}`).then(
+      response => response.text(),
+      error => console.log("Error fetching prediction list", error)
+    ).then((xml) => {
+      const data = x2js.xml2js(xml);
+      const predictions = data.body;
+      dispatch(setData({ predictions }));
+      dispatch(doneRequestingData("predictions"));
+    });
+  };
+};
 
 const actions = {
   // Sync,
@@ -111,6 +107,6 @@ const actions = {
   // Async
   fetchAgencies,
   fetchStops,
-  // getPrediction,
+  getPrediction,
 };
 export default actions;

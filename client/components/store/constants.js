@@ -15,4 +15,8 @@ export const INITIAL_STATE = Object.freeze({
     isFetching: false,
     data: {},
   },
+  predictions: {
+    isFetching: false,
+    data: {},
+  },
 });

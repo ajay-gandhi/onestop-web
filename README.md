@@ -2,7 +2,10 @@
 
 ## Todo
 
-* Implement map
-  * Implement stop marker hover info
-  * Implement stop marker click
-    * Sample prediction on click
+* Integrate Postgres key-value system from gbaplay
+* Integrate Google login
+* Build saving selected stop and route into postgres
+* Create fulfillment
+* Build UI
+  * Disable select boxes, sample prediction button when fetching
+  * Write docs

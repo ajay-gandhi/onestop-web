@@ -9,6 +9,7 @@ import { actions, store } from "components/store/Store";
 import ConnectedAgencySelector from "components/AgencySelector";
 import ConnectedRouteSelector from "components/RouteSelector";
 import Map from "components/Map";
+import Prediction from "components/Prediction";
 
 class NextTrainApp extends React.Component {
   static propTypes = {
@@ -44,6 +45,7 @@ class NextTrainApp extends React.Component {
         <ConnectedRouteSelector />
         (Route selection is optional but recommended)
         <Map />
+        <Prediction />
       </div>
     );
   }

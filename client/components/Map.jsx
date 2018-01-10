@@ -7,7 +7,6 @@ import { actions } from "components/store/Store";
 
 import GoogleMap from "google-map-react";
 // import Icon from "components/Icon";
-import { Button } from "react-bootstrap";
 
 // const StopMarker = (props) => {
   // return (
@@ -22,8 +21,6 @@ class Map extends React.Component {
     stops: PropTypes.object,
     selectStop: PropTypes.func,
     selectedRoute: PropTypes.object,
-    prediction: PropTypes.object,
-    getPrediction: PropTypes.func,
     center: PropTypes.shape({
       lat: PropTypes.number,
       lng: PropTypes.number,
@@ -90,20 +87,21 @@ class Map extends React.Component {
     if (this.props.stops[this.props.selectedStop]) {
       selectedContent = (
         <div>
-          <h3>Selected: { this.props.stops[this.props.selectedStop].name }</h3>
-          <Button onClick={ this.props.getPrediction }>Get sample prediction</Button>
+          <h4>Selected: { this.props.stops[this.props.selectedStop].name }</h4>
         </div>
       );
     }
 
     return (
-      <div className="MapContainer" style={ { width: "400px", height: "400px" } }>
-        <GoogleMap
-          defaultCenter={ this.props.center }
-          defaultZoom={ this.props.zoom }
-          onGoogleApiLoaded={ this.setMap }
-        >
-        </GoogleMap>
+      <div>
+        <div className="MapContainer" style={ { width: "400px", height: "400px" } }>
+          <GoogleMap
+            defaultCenter={ this.props.center }
+            defaultZoom={ this.props.zoom }
+            onGoogleApiLoaded={ this.setMap }
+          >
+          </GoogleMap>
+        </div>
         <div className="MapContainer__InfoWindow">
           { hoveredStop }
           { selectedContent }
@@ -118,13 +116,11 @@ const mapStateToProps = (state) => {
     stops: state.stops.data,
     selectedRoute: state.routes.data[state.selectedRoute],
     selectedStop: state.selectedStop,
-    prediction: state.predictions.data,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     selectStop: selectedStop => dispatch(actions.setValues({ selectedStop })),
-    getPrediction: () => dispatch(actions.getPrediction()),
   };
 };
 

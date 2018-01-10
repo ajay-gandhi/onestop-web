@@ -101,17 +101,18 @@ const fetchStops = () => {
     });
   };
 };
-const getPrediction = () => {
+const getPredictions = () => {
   return (dispatch, getState) => {
     dispatch(requestData("predictions"));
     const state = getState();
     const stopId = state.stops.data[state.selectedStop].stopId;
-    return fetch(`${apiBase}predictions&a=${state.selectedAgency}&stopId=${stopId}`).then(
+    const routeParam = state.selectedRoute ? `&r=${state.selectedRoute}` : "";
+    return fetch(`${apiBase}predictions&a=${state.selectedAgency}${routeParam}&stopId=${stopId}`).then(
       response => response.text(),
       error => console.log("Error fetching prediction list", error)
     ).then((xml) => {
       const data = x2js.xml2js(xml);
-      const predictions = data.body;
+      const predictions = data.body.predictions.direction;
       dispatch(setData({ predictions }));
       dispatch(doneRequestingData("predictions"));
     });
@@ -125,6 +126,6 @@ const actions = {
   // Async
   fetchAgencies,
   fetchStops,
-  getPrediction,
+  getPredictions,
 };
 export default actions;

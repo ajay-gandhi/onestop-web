@@ -1,0 +1,24 @@
+.StickyHeader {
+  height: 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 10px;
+}
+.StickyHeader__title {
+  margin: 10px;
+  font-size: 24px;
+}
+.StickyHeader__step {
+  margin: 10px;
+  font-size: 14px;
+}
+.StickyHeader__progress {
+  margin: 0 10px;
+  width: 100%;
+}

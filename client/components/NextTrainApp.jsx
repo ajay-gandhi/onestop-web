@@ -1,3 +1,5 @@
+import "components/scss/NextTrainApp.scss";
+
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -6,67 +8,70 @@ import { Provider } from "react-redux";
 // import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { actions, store } from "components/store/Store";
 
+import StickyHeading from "components/StickyHeading";
 import ConnectedAgencySelector from "components/AgencySelector";
 import ConnectedRouteSelector from "components/RouteSelector";
 import Map from "components/Map";
 import Prediction from "components/Prediction";
 
+import { Button } from "react-bootstrap";
+
 class NextTrainApp extends React.Component {
   static propTypes = {
-    // selectedAgency: PropTypes.string,
-    // selectedStop: PropTypes.string,
-    // agencies: PropTypes.arrayOf(PropTypes.object),
-    // stops: PropTypes.arrayOf(PropTypes.object),
+    step: PropTypes.number,
+    nextStep: PropTypes.func,
+    prevStep: PropTypes.func,
     fetchAgencies: PropTypes.func,
-    // fetchStops: PropTypes.func,
   };
   constructor(props) {
     super(props);
     this.props.fetchAgencies();
   }
 
-  // handleAgencyChange = e => {
-    // this.props.selectOption("agency", e.id);
-    // this.props.fetchRoutes();
-  // }
-  // handleRouteChange = e => {
-    // this.props.selectOption("route", e.id);
-    // this.props.fetchStops();
-  // }
-  // handleStopChange = e => {
-    // this.props.selectOption("stop", e.id);
-    // this.props.getPrediction();
-  // }
-
   render = () => {
+    const wizardPosition = {
+      marginLeft: -this.props.step * Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+    };
+
     return (
       <div>
-        <ConnectedAgencySelector />
-        <ConnectedRouteSelector />
-        (Route selection is optional but recommended)
-        <Map />
-        <Prediction />
+        <StickyHeading />
+        <div className="WizardContainer">
+          <div style={ wizardPosition } className="Wizard">
+            <div className="Wizard__Step">
+              Select an agency:
+              <ConnectedAgencySelector />
+              <Button onClick={ this.props.nextStep }>Next</Button>
+            </div>
+            <div className="Wizard__Step">
+              Select a route:
+              <ConnectedRouteSelector />
+              (Route selection is optional but recommended)
+              <Button onClick={ this.nextStep }>Next</Button>
+            </div>
+            <div className="Wizard__Step">
+              <Map />
+            </div>
+            <div className="Wizard__Step">
+              <Prediction />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = () => ({});
-// const mapStateToProps = (state) => {
-  // return {
-    // selectedAgency: state.selections.agency,
-    // agencies: state.lists.agency.data,
-  // };
-// };
+const mapStateToProps = (state) => {
+  return {
+    step: state.step,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
-    // selectOption: (option, value) => dispatch(actions.selectOption(option, value)),
-
+    nextStep: () => dispatch(actions.nextStep()),
+    prevStep: () => dispatch(actions.prevStep()),
     fetchAgencies: () => dispatch(actions.fetchAgencies()),
-    // fetchRoutes: () => dispatch(actions.fetchRoutes()),
-    // fetchStops: () => dispatch(actions.fetchStops()),
-
-    // getPrediction: () => dispatch(actions.getPrediction()),
   };
 };
 const ConnectedNextTrainApp = connect(mapStateToProps, mapDispatchToProps)(NextTrainApp);

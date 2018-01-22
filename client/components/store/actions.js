@@ -6,6 +6,12 @@ import X2JS from "x2js";
 const x2js = new X2JS();
 
 /** Sync actions **/
+const nextStep = () => {
+  return { type: ACTION_TYPES.nextStep };
+};
+const prevStep = () => {
+  return { type: ACTION_TYPES.prevStep };
+};
 const setValues = (values) => {
   return {
     type: ACTION_TYPES.setValues,
@@ -121,6 +127,8 @@ const getPredictions = () => {
 
 const actions = {
   // Sync,
+  nextStep,
+  prevStep,
   setValues,
 
   // Async

@@ -2,6 +2,18 @@ import { ACTION_TYPES, INITIAL_STATE } from "./constants";
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case ACTION_TYPES.nextStep:
+      return {
+        ...state,
+        step: state.step + 1,
+      };
+
+    case ACTION_TYPES.prevStep:
+      return {
+        ...state,
+        step: state.step - 1,
+      };
+
     case ACTION_TYPES.setValues:
       return {
         ...state,

@@ -11,6 +11,7 @@ class Prediction extends React.Component {
   static propTypes = {
     selectedStop: PropTypes.string,
     predictions: PropTypes.object,
+    isFetching: PropTypes.bool,
     getPredictions: PropTypes.func,
   };
 
@@ -35,7 +36,7 @@ class Prediction extends React.Component {
       <div>
         <Button
           onClick={ this.props.getPredictions }
-          disabled={ !this.props.selectedStop }
+          disabled={ !this.props.selectedStop || this.props.isFetching }
         >
           Get sample prediction
         </Button>
@@ -50,6 +51,7 @@ const mapStateToProps = (state) => {
   return {
     selectedStop: state.selectedStop,
     predictions: state.predictions.data,
+    isFetching: state.predictions.isFetching,
   };
 };
 const mapDispatchToProps = (dispatch) => {

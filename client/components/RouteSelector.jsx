@@ -10,6 +10,7 @@ class RouteSelector extends React.Component {
   static propTypes = {
     selectedRoute: PropTypes.string,
     routes: PropTypes.object,
+    isFetching: PropTypes.bool,
     selectRoute: PropTypes.func,
   };
 
@@ -23,6 +24,7 @@ class RouteSelector extends React.Component {
         name="route"
         value={ this.props.selectedRoute }
         onChange={ this.handleRouteChange }
+        disabled={ this.props.isFetching || this.props.routes.length === 0 }
         labelKey="name"
         valueKey="id"
         options={ Object.values(this.props.routes) }
@@ -35,6 +37,7 @@ const mapStateToProps = (state) => {
   return {
     selectedRoute: state.selectedRoute,
     routes: state.routes.data,
+    isFetching: state.routes.isFetching,
   };
 };
 const mapDispatchToProps = (dispatch) => {

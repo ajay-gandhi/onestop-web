@@ -10,6 +10,7 @@ class AgencySelector extends React.Component {
   static propTypes = {
     selectedAgency: PropTypes.string,
     agencies: PropTypes.arrayOf(PropTypes.object),
+    isFetching: PropTypes.bool,
     selectAgency: PropTypes.func,
     fetchStops: PropTypes.func,
   };
@@ -25,6 +26,7 @@ class AgencySelector extends React.Component {
         name="agency"
         value={ this.props.selectedAgency }
         onChange={ this.handleAgencyChange }
+        disabled={ this.props.isFetching }
         labelKey="name"
         valueKey="id"
         options={ this.props.agencies }
@@ -37,6 +39,7 @@ const mapStateToProps = (state) => {
   return {
     selectedAgency: state.selectedAgency,
     agencies: state.agencies.data,
+    isFetching: state.agencies.isFetching,
   };
 };
 const mapDispatchToProps = (dispatch) => {

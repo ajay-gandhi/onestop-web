@@ -8,7 +8,7 @@ import "react-select/dist/react-select.css";
 import { connect } from "react-redux";
 import { actions } from "components/store/Store";
 
-class AgencySelector extends React.Component {
+class AgencySelector extends React.PureComponent {
   static propTypes = {
     selectedAgency: PropTypes.string,
     agencies: PropTypes.arrayOf(PropTypes.object),

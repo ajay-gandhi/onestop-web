@@ -14,6 +14,8 @@ class Wizard extends React.Component {
       child: PropTypes.node,
       disabled: PropTypes.bool,
     })),
+    nextStep: PropTypes.func,
+    prevStep: PropTypes.func,
   };
   constructor(props) {
     super(props);

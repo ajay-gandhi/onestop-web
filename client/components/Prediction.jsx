@@ -1,5 +1,3 @@
-// import "components/scss/Map.scss";
-
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -7,8 +5,9 @@ import { actions } from "components/store/Store";
 
 import { Button } from "react-bootstrap";
 
-class Prediction extends React.Component {
+class Prediction extends React.PureComponent {
   static propTypes = {
+    step: PropTypes.number,
     selectedStop: PropTypes.string,
     predictions: PropTypes.object,
     isFetching: PropTypes.bool,
@@ -16,11 +15,6 @@ class Prediction extends React.Component {
   };
 
   render = () => {
-    let disabledMessage;
-    if (!this.props.selectedStop) {
-      disabledMessage = <span>Select a stop</span>;
-    }
-
     let predictionMessage;
     if (this.props.predictions && this.props.predictions._title) {
       const prediction = this.props.predictions.prediction[0];
@@ -40,7 +34,6 @@ class Prediction extends React.Component {
         >
           Get sample prediction
         </Button>
-        { disabledMessage }
         { predictionMessage }
       </div>
     );
@@ -49,6 +42,7 @@ class Prediction extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    step: state.step,
     selectedStop: state.selectedStop,
     predictions: state.predictions.data,
     isFetching: state.predictions.isFetching,

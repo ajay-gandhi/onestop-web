@@ -8,7 +8,7 @@ import "react-select/dist/react-select.css";
 import { connect } from "react-redux";
 import { actions } from "components/store/Store";
 
-class RouteSelector extends React.Component {
+class RouteSelector extends React.PureComponent {
   static propTypes = {
     selectedRoute: PropTypes.string,
     routes: PropTypes.object,

@@ -5,13 +5,21 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { actions } from "components/store/Store";
 
+import { Button } from "react-bootstrap";
+
 const Wizard = (props) => {
   const wizardPosition = {
     marginLeft: -props.step * Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
   };
 
-  const steps = props.children.map((child, i) => (
-    <div key={ i } className="Wizard__Step">{ child }</div>
+  const steps = props.sections.map(({ child, disabled }, i) => (
+    <div key={ i } className="Wizard__Step">
+      { child }
+      <div className="Step__Navigation">
+        <Button className="Navigation__button" onClick={ props.prevStep }>Back</Button>
+        <Button className="Navigation__button" disabled={ disabled } onClick={ props.nextStep } bsStyle="success">Next</Button>
+      </div>
+    </div>
   ));
 
   return (
@@ -24,6 +32,10 @@ const Wizard = (props) => {
 };
 Wizard.propTypes = {
   step: PropTypes.number,
+  sections: PropTypes.arrayOf(PropTypes.shape({
+    child: PropTypes.node,
+    disabled: PropTypes.bool,
+  })),
 };
 
 const mapStateToProps = (state) => {

@@ -13,11 +13,11 @@ import ConnectedRouteSelector from "components/RouteSelector";
 import Map from "components/Map";
 import Prediction from "components/Prediction";
 
-import { Button } from "react-bootstrap";
-
 class NextTrainApp extends React.Component {
   static propTypes = {
     fetchAgencies: PropTypes.func,
+    selectedAgency: PropTypes.string,
+    selectedStop: PropTypes.string,
   };
   constructor(props) {
     super(props);
@@ -25,35 +25,57 @@ class NextTrainApp extends React.Component {
   }
 
   render = () => {
-    return (
-      <div>
-        <StickyHeading />
-        <Wizard>
+    const sections = [
+      {
+        child: (
           <div>
             Select an agency:
             <ConnectedAgencySelector />
-            <Button onClick={ this.props.nextStep }>Next</Button>
           </div>
+        ),
+        disabled: !this.props.selectedAgency,
+      },
+      {
+        child: (
           <div>
             Select a route:
             <ConnectedRouteSelector />
             (Route selection is optional but recommended)
-            <Button onClick={ this.nextStep }>Next</Button>
           </div>
-          <Map />
-          <Prediction />
-        </Wizard>
+        ),
+        disabled: false,
+      },
+      {
+        child: <Map />,
+        disabled: !this.props.selectedStop,
+      },
+      {
+        child: <Prediction />,
+        disabled: true,
+      },
+    ];
+
+    return (
+      <div>
+        <StickyHeading />
+        <Wizard sections={ sections } />
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    selectedAgency: state.selectedAgency,
+    selectedStop: state.selectedStop,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchAgencies: () => dispatch(actions.fetchAgencies()),
   };
 };
-const ConnectedNextTrainApp = connect(null, mapDispatchToProps)(NextTrainApp);
+const ConnectedNextTrainApp = connect(mapStateToProps, mapDispatchToProps)(NextTrainApp);
 
 const NextTrainAppContainer = () => <Provider store={ store }><ConnectedNextTrainApp /></Provider>;
 export default NextTrainAppContainer;

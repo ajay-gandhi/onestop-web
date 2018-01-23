@@ -14,3 +14,13 @@
 .Wizard__Step {
   flex: 0 0 100vw;
 }
+.Step__Navigation {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.Navigation__button {
+  flex: 1 1 50%;
+  margin: 0 5px;
+}

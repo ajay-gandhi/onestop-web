@@ -27,22 +27,11 @@ class NextTrainApp extends React.Component {
   render = () => {
     const sections = [
       {
-        child: (
-          <div>
-            Select an agency:
-            <ConnectedAgencySelector />
-          </div>
-        ),
+        child: <ConnectedAgencySelector />,
         disabled: !this.props.selectedAgency,
       },
       {
-        child: (
-          <div>
-            Select a route:
-            <ConnectedRouteSelector />
-            (Route selection is optional but recommended)
-          </div>
-        ),
+        child: <ConnectedRouteSelector />,
         disabled: false,
       },
       {

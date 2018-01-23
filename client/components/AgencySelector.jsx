@@ -1,3 +1,5 @@
+import "components/scss/AgencySelector.scss";
+
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -22,15 +24,18 @@ class AgencySelector extends React.Component {
 
   render = () => {
     return (
-      <Select
-        name="agency"
-        value={ this.props.selectedAgency }
-        onChange={ this.handleAgencyChange }
-        disabled={ this.props.isFetching }
-        labelKey="name"
-        valueKey="id"
-        options={ this.props.agencies }
-      />
+      <div className="AgencySelector">
+        <label className="AgencySelector__label">Select an agency:</label>
+        <Select
+          name="agency"
+          value={ this.props.selectedAgency }
+          onChange={ this.handleAgencyChange }
+          disabled={ this.props.isFetching }
+          labelKey="name"
+          valueKey="id"
+          options={ this.props.agencies }
+        />
+      </div>
     );
   }
 }

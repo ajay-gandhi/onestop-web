@@ -1,0 +1,22 @@
+.Prediction__title {
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.Prediction__content {
+  padding: 0 0 3px 5px;
+}
+.Prediction__verticalCenter {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.Prediction__content__icon {
+  font-size: 22px;
+  margin-right: 5px;
+}
+.Prediction__content__minutes {
+  font-size: 16px;
+  margin: 10px 0;
+}

@@ -6,15 +6,6 @@ import { connect } from "react-redux";
 import { actions } from "components/store/Store";
 
 import GoogleMap from "google-map-react";
-// import Icon from "components/Icon";
-
-// const StopMarker = (props) => {
-  // return (
-    // <div className="StopMarker">
-      // <Icon glyph="directions_bus" />
-    // </div>
-  // );
-// };
 
 class Map extends React.Component {
   static propTypes = {
@@ -94,7 +85,7 @@ class Map extends React.Component {
 
     return (
       <div>
-        <div className="MapContainer" style={ { width: "400px", height: "400px" } }>
+        <div className="MapContainer">
           <GoogleMap
             defaultCenter={ this.props.center }
             defaultZoom={ this.props.zoom }

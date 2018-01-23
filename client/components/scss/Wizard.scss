@@ -13,6 +13,7 @@
 
 .Wizard__Step {
   flex: 0 0 100vw;
+  padding: 0 20px;
 }
 .Step__Navigation {
   display: flex;
@@ -22,5 +23,8 @@
 }
 .Navigation__button {
   flex: 1 1 50%;
-  margin: 0 5px;
+
+  &:first-of-type {
+    margin-right: 10px;
+  }
 }

@@ -10,7 +10,7 @@ import StickyHeading from "components/StickyHeading";
 import Wizard from "components/Wizard";
 import ConnectedAgencySelector from "components/AgencySelector";
 import ConnectedRouteSelector from "components/RouteSelector";
-import Map from "components/Map";
+import StopSelector from "components/StopSelector";
 import Prediction from "components/Prediction";
 
 class NextTrainApp extends React.Component {
@@ -46,7 +46,7 @@ class NextTrainApp extends React.Component {
         disabled: false,
       },
       {
-        child: <Map />,
+        child: <StopSelector />,
         disabled: !this.props.selectedStop,
       },
       {

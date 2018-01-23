@@ -1,0 +1,24 @@
+.StopSelector {
+  position: relative;
+}
+
+.StopSelector__MapContainer {
+  width: 100%;
+  height: calc(100vh - 170px);
+}
+
+.StopSelector__hoverStatus {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  padding: 6px 8px;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+.StopSelector__selectedStatus {
+  height: 21px;
+  font-size: 18px;
+  margin: 10px 10px 0;
+}

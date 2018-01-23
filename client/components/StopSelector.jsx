@@ -1,4 +1,4 @@
-import "components/scss/Map.scss";
+import "components/scss/StopSelector.scss";
 
 import React from "react";
 import PropTypes from "prop-types";
@@ -7,7 +7,7 @@ import { actions } from "components/store/Store";
 
 import GoogleMap from "google-map-react";
 
-class Map extends React.Component {
+class StopSelector extends React.Component {
   static propTypes = {
     stops: PropTypes.object,
     selectStop: PropTypes.func,
@@ -69,23 +69,21 @@ class Map extends React.Component {
   }
 
   render = () => {
-    let hoveredStop;
+    let hoveredText;
     if (this.state.hoveredStop) {
-      hoveredStop = <span>Hovered on: { `${this.state.hoveredStop.name} (${this.state.hoveredStop.id})` }</span>;
-    }
-
-    let selectedContent;
-    if (this.props.stops[this.props.selectedStop]) {
-      selectedContent = (
-        <div>
-          <h4>Selected: { this.props.stops[this.props.selectedStop].name }</h4>
+      hoveredText = (
+        <div className="StopSelector__hoverStatus">
+          { `${this.state.hoveredStop.name} (${this.state.hoveredStop.id})` }
         </div>
       );
     }
 
+    const selectedStop = this.props.stops[this.props.selectedStop];
+    const selectedText = selectedStop ? `Selected: ${selectedStop.name}` : "Select a stop";
+
     return (
-      <div>
-        <div className="MapContainer">
+      <div className="StopSelector">
+        <div className="StopSelector__MapContainer">
           <GoogleMap
             defaultCenter={ this.props.center }
             defaultZoom={ this.props.zoom }
@@ -93,10 +91,8 @@ class Map extends React.Component {
           >
           </GoogleMap>
         </div>
-        <div className="MapContainer__InfoWindow">
-          { hoveredStop }
-          { selectedContent }
-        </div>
+        { hoveredText }
+        <h4 className="StopSelector__selectedStatus">{ selectedText }</h4>
       </div>
     );
   };
@@ -115,4 +111,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(StopSelector);

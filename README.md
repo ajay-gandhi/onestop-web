@@ -4,5 +4,5 @@
 
 * Integrate Google login
 * Create fulfillment
-* Build UI
-  * Write docs
+* Add login page to wizard
+* Add saved page to wizard

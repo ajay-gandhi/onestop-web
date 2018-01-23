@@ -50,7 +50,7 @@ class Wizard extends React.Component {
         { child }
         <div className="Step__Navigation">
           <Button className="Navigation__button" onClick={ this.props.prevStep }>Back</Button>
-          <Button className="Navigation__button" disabled={ disabled } onClick={ this.props.nextStep } bsStyle="success">Next</Button>
+          <Button className="Navigation__button" disabled={ !!disabled } onClick={ this.props.nextStep } bsStyle="success">Next</Button>
         </div>
       </div>
     ));

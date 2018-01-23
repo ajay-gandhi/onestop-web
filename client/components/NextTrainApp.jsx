@@ -32,7 +32,6 @@ class NextTrainApp extends React.Component {
       },
       {
         child: <ConnectedRouteSelector />,
-        disabled: false,
       },
       {
         child: <StopSelector />,

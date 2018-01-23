@@ -2,6 +2,7 @@ import "components/scss/StickyHeading.scss";
 
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { ProgressBar } from "react-bootstrap";
 
 const steps = ["Select Agency", "Select Route", "Select Stop", "Confirm Stop"];
@@ -16,4 +17,10 @@ StickyHeading.propTypes = {
   step: PropTypes.number,
 };
 
-export default StickyHeading;
+const mapStateToProps = (state) => {
+  return {
+    step: state.step,
+  };
+};
+
+export default connect(mapStateToProps)(StickyHeading);

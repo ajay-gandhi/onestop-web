@@ -61,6 +61,7 @@ const fetchAgencies = () => {
     });
   };
 };
+
 const fetchStops = () => {
   return (dispatch, getState) => {
     dispatch(requestData("stops"));
@@ -125,6 +126,41 @@ const getPredictions = () => {
   };
 };
 
+const getSettings = () => {
+  return (dispatch) => {
+    dispatch(setValues({ isFetchingSettings: true }));
+    return fetch("/getSettings").then(
+      response => JSON.parse(response.text()),
+      error => console.log("Error fetching settings", error)
+    ).then((json) => {
+      dispatch(setValues({
+        selectedAgency: json.agencyId,
+        selectedRoute: json.routeId,
+        selectedStop: json.stopId,
+      }));
+      dispatch(setValues({ isFetchingSettings: false }));
+    });
+  };
+};
+const saveSettings = () => {
+  return (dispatch, getState) => {
+    dispatch(setValues({ isFetchingSettings: true }));
+    const state = getState();
+    const settings = {
+      agencyId: state.selectedAgency,
+      routeId: state.selectedRoute,
+      stopId: state.selectedStop,
+    };
+    const qsSettings = Object.keys(settings).map(key => key + "=" + settings[key]).join("&");
+    return fetch("/saveSettings?" + qsSettings).then(
+      response => JSON.parse(response.text()),
+      error => console.log("Error fetching settings", error)
+    ).then(() => {
+      dispatch(setValues({ isFetchingSettings: false }));
+    });
+  };
+};
+
 const actions = {
   // Sync,
   nextStep,
@@ -135,5 +171,7 @@ const actions = {
   fetchAgencies,
   fetchStops,
   getPredictions,
+  getSettings,
+  saveSettings,
 };
 export default actions;

@@ -1,8 +1,9 @@
-# Whenstop
+# Onestop
 
-## Todo
+> Web interface for getting public transit predictions
 
-* Integrate Google login
-* Create fulfillment
-* Add login page to wizard
-* Add saved page to wizard
+This was originally going to be an interface for saving settings for a Google
+Home app, but that's been moved to
+[a different repo](https://github.com/ajay-gandhi/onestop-web).
+
+**Usage:** Clone, `npm install`, `npm start`.
